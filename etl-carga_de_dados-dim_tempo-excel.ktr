@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>etl-carga_de_dados-dim_produto</name>
+    <name>etl-carga_de_dados-dim_tempo-excel</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -437,25 +437,6 @@
   <notepads>
   </notepads>
   <connection>
-    <name>Jaspe</name>
-    <server>10.3.0.105</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>gen</database>
-    <port>1521</port>
-    <username>dba_egk</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb1dac71e197a8d1</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>1521</attribute>
-      </attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>mysql</name>
     <server>localhost</server>
     <type>MYSQL</type>
@@ -476,11 +457,6 @@
   </connection>
   <order>
     <hop>
-      <from>Table input - Dimensão Produto</from>
-      <to>Sort rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Sort rows</from>
       <to>Filter rows</to>
       <enabled>Y</enabled>
@@ -498,6 +474,11 @@
     <hop>
       <from>Select values</from>
       <to>Insert / update</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Microsoft Excel input</from>
+      <to>Sort rows</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -521,7 +502,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
+      <xloc>480</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
@@ -545,33 +526,33 @@
         <conditions>
           <condition>
             <negated>N</negated>
-            <leftvalue>CD_AREA_PRODUTO</leftvalue>
-            <function>=</function>
+            <leftvalue>SK_TEMPO</leftvalue>
+            <function>&gt;</function>
             <rightvalue/>
             <value>
               <name>constant</name>
-              <type>String</type>
-              <text>000006</text>
+              <type>Integer</type>
+              <text>20150101</text>
               <length>-1</length>
-              <precision>-1</precision>
+              <precision>0</precision>
               <isnull>N</isnull>
               <mask>####0;-####0</mask>
             </value>
           </condition>
           <condition>
             <negated>N</negated>
-            <operator>OR</operator>
-            <leftvalue>CD_AREA_PRODUTO</leftvalue>
-            <function>=</function>
+            <operator>AND</operator>
+            <leftvalue>SK_TEMPO</leftvalue>
+            <function>&lt;</function>
             <rightvalue/>
             <value>
               <name>constant</name>
-              <type>String</type>
-              <text>000001</text>
+              <type>Integer</type>
+              <text>20201231</text>
               <length>-1</length>
-              <precision>-1</precision>
+              <precision>0</precision>
               <isnull>N</isnull>
-              <mask/>
+              <mask>####0;-####0</mask>
             </value>
           </condition>
         </conditions>
@@ -586,7 +567,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>464</xloc>
+      <xloc>480</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -607,86 +588,66 @@
     <update_bypassed>N</update_bypassed>
     <lookup>
       <schema>projeto</schema>
-      <table>dim_produto</table>
+      <table>dim_tempo</table>
       <key>
-        <name>SK_PRODUTO</name>
-        <field>SK_PRODUTO</field>
+        <name>SK_TEMPO</name>
+        <field>SK_TEMPO</field>
         <condition>=</condition>
         <name2/>
       </key>
       <value>
-        <name>SK_PRODUTO</name>
-        <rename>SK_PRODUTO</rename>
+        <name>SK_TEMPO</name>
+        <rename>SK_TEMPO</rename>
         <update>N</update>
       </value>
       <value>
-        <name>CD_PRODUTO</name>
-        <rename>CD_PRODUTO</rename>
+        <name>NR_ANO</name>
+        <rename>NR_ANO</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>ISBN_PRODUTO</name>
-        <rename>ISBN_PRODUTO</rename>
+        <name>NR_MES_NUMERO</name>
+        <rename>NR_MES_NUMERO</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>cd_historico</name>
-        <rename>cd_historico</rename>
+        <name>NR_DIA_DO_MES</name>
+        <rename>NR_DIA_DO_MES</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>cd_mae</name>
-        <rename>cd_mae</rename>
+        <name>NO_MES</name>
+        <rename>NO_MES</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>no_produto</name>
-        <rename>no_produto</rename>
+        <name>NR_TRIMESTRE</name>
+        <rename>NR_TRIMESTRE</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>CD_TIPO_PUBLICACAO</name>
-        <rename>CD_TIPO_PUBLICACAO</rename>
+        <name>qtd_dia_mes</name>
+        <rename>qtd_dia_mes</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>no_tipo_publicacao</name>
-        <rename>no_tipo_publicacao</rename>
+        <name>DS_DATA_SEM_HORA</name>
+        <rename>DS_DATA_SEM_HORA</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>DT_PUBLICACAO</name>
-        <rename>DT_PUBLICACAO</rename>
+        <name>DS_MES_ANO</name>
+        <rename>DS_MES_ANO</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>cd_situacao</name>
-        <rename>cd_situacao</rename>
+        <name>DS_DATA_YMD</name>
+        <rename>DS_DATA_YMD</rename>
         <update>Y</update>
       </value>
       <value>
-        <name>no_situacao</name>
-        <rename>no_situacao</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>cd_grupo</name>
-        <rename>cd_grupo</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>no_grupo</name>
-        <rename>no_grupo</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>cd_area</name>
-        <rename>cd_area</rename>
-        <update>Y</update>
-      </value>
-      <value>
-        <name>no_area</name>
-        <rename>no_area</rename>
+        <name>DS_ANO_MES</name>
+        <rename>DS_ANO_MES</rename>
         <update>Y</update>
       </value>
     </lookup>
@@ -717,59 +678,48 @@
     </partitioning>
     <fields>
       <field>
-        <name>SK_PRODUTO</name>
+        <name>SK_TEMPO</name>
+        <rename/>
       </field>
       <field>
-        <name>CD_PRODUTO</name>
+        <name>NR_ANO</name>
+        <rename/>
       </field>
       <field>
-        <name>ISBN_PRODUTO</name>
+        <name>NR_MES_NUMERO</name>
+        <rename/>
       </field>
       <field>
-        <name>HISTORICO_PRODUTO</name>
-        <rename>cd_historico</rename>
+        <name>NR_DIA_DO_MES</name>
+        <rename/>
       </field>
       <field>
-        <name>PRODUTO_MAE</name>
-        <rename>cd_mae</rename>
+        <name>NO_MES</name>
+        <rename/>
       </field>
       <field>
-        <name>NM_PRODUTO</name>
-        <rename>no_produto</rename>
+        <name>NR_TRIMESTRE</name>
+        <rename/>
       </field>
       <field>
-        <name>CD_TIPO_PUBLICACAO</name>
+        <name>QTD_DIAS_NO_MES</name>
+        <rename>qtd_dia_mes</rename>
       </field>
       <field>
-        <name>NM_TIPO_PUBLICACAO</name>
-        <rename>no_tipo_publicacao</rename>
+        <name>DS_DATA_SEM_HORA</name>
+        <rename/>
       </field>
       <field>
-        <name>DT_PUBLICACAO</name>
+        <name>DS_MES_ANO</name>
+        <rename/>
       </field>
       <field>
-        <name>CD_SITUACAO_PRODUTO</name>
-        <rename>cd_situacao</rename>
+        <name>DS_DATA_YMD</name>
+        <rename/>
       </field>
       <field>
-        <name>NM_SITUACAO_PRODUTO</name>
-        <rename>no_situacao</rename>
-      </field>
-      <field>
-        <name>CD_GRUPO_PRODUTO</name>
-        <rename>cd_grupo</rename>
-      </field>
-      <field>
-        <name>NM_GRUPO_PRODUTO</name>
-        <rename>no_grupo</rename>
-      </field>
-      <field>
-        <name>CD_AREA_PRODUTO</name>
-        <rename>cd_area</rename>
-      </field>
-      <field>
-        <name>NM_AREA_PRODUTO</name>
-        <rename>no_area</rename>
+        <name>DS_ANO_MES</name>
+        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -807,7 +757,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>CD_AREA_PRODUTO</name>
+        <name>SK_TEMPO</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -830,8 +780,8 @@
     </GUI>
   </step>
   <step>
-    <name>Table input - Dimensão Produto</name>
-    <type>TableInput</type>
+    <name>Microsoft Excel input</name>
+    <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -840,22 +790,464 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Jaspe</connection>
-    <sql>SELECT *
-from sch_ods.dim_produto
-where isbn_produto in ('9788597024043'
-,'9788530993092'
-,'9786559640041'
-,'9788530991869'
-,'9788530992552'
-,'9788530993702'
-,'9788527733816'
-)</sql>
+    <header>Y</header>
+    <noempty>Y</noempty>
+    <stoponempty>N</stoponempty>
+    <filefield/>
+    <sheetfield/>
+    <sheetrownumfield/>
+    <rownumfield/>
+    <sheetfield/>
+    <filefield/>
     <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <encoding/>
+    <add_to_result_filenames>Y</add_to_result_filenames>
+    <accept_filenames>N</accept_filenames>
+    <accept_field/>
+    <accept_stepname/>
+    <file>
+      <name>/home/rafael/Downloads/exportar-dim_tempo.xlsx</name>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>SK_TEMPO</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_ANO</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_MES_NUMERO</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_DIA_DO_ANO</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_DIA_DO_MES</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_DIA_DA_SEMANA</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NO_DIA</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NO_MES</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_TRIMESTRE</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NO_TRIMESTRE</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NO_ANO_TRIMESTRE</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>ST_FINAL_SEMANA</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>QTD_DIAS_NO_MES</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>DS_DATA_SEM_HORA</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SK_SEMANA</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>DT_DATA_COM_HORA</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NO_SEMANA</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_SEMANA_DO_MES</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NO_SEMANA_DO_MES</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SK_MES</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SK_TRIMESTRE</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SK_ANO</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_ANO_ORDENADO</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_DIA_DA_SEMANA_ORDENADO</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_SEMESTRE</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NO_SEMESTRE</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SK_SEMESTRE</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NR_BIMESTRE</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>DS_MES_ANO</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>NO_BIMESTRE</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>SK_BIMESTRE</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>DS_DATA_YMD</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>DIA_UTIL</name>
+        <type>Number</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+      <field>
+        <name>DS_ANO_MES</name>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+      </field>
+    </fields>
+    <sheets>
+      <sheet>
+        <name>planilha</name>
+        <startrow>0</startrow>
+        <startcol>0</startcol>
+      </sheet>
+    </sheets>
+    <strict_types>N</strict_types>
+    <error_ignored>N</error_ignored>
+    <error_line_skipped>N</error_line_skipped>
+    <bad_line_files_destination_directory/>
+    <bad_line_files_extension>warning</bad_line_files_extension>
+    <error_line_files_destination_directory/>
+    <error_line_files_extension>error</error_line_files_extension>
+    <line_number_files_destination_directory/>
+    <line_number_files_extension>line</line_number_files_extension>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <spreadsheet_type>POI</spreadsheet_type>
+    <password>Encrypted </password>
     <attributes/>
     <cluster_schema/>
     <remotesteps>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>etl-carga_de_dados</name>
+    <name>etl-carga_de_dados-dim_tempo</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -501,8 +502,8 @@
     </hop>
   </order>
   <step>
-    <name>Table input</name>
-    <type>TableInput</type>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -511,16 +512,6 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>Jaspe</connection>
-    <sql>SELECT *
-from sch_ods.dim_tempo
-where sk_tempo between 20150101 and 20151231
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -530,8 +521,8 @@ where sk_tempo between 20150101 and 20151231
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
-      <yloc>192</yloc>
+      <xloc>480</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -576,7 +567,7 @@ where sk_tempo between 20150101 and 20151231
             <value>
               <name>constant</name>
               <type>Integer</type>
-              <text>20150131</text>
+              <text>20201231</text>
               <length>-1</length>
               <precision>0</precision>
               <isnull>N</isnull>
@@ -596,149 +587,6 @@ where sk_tempo between 20150101 and 20151231
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Sort rows</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>SK_TEMPO</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>336</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>480</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>SK_TEMPO</name>
-        <rename/>
-      </field>
-      <field>
-        <name>NR_ANO</name>
-        <rename/>
-      </field>
-      <field>
-        <name>NR_MES_NUMERO</name>
-        <rename/>
-      </field>
-      <field>
-        <name>NR_DIA_DO_MES</name>
-        <rename/>
-      </field>
-      <field>
-        <name>NO_MES</name>
-        <rename/>
-      </field>
-      <field>
-        <name>NR_TRIMESTRE</name>
-        <rename/>
-      </field>
-      <field>
-        <name>QTD_DIAS_NO_MES</name>
-        <rename>qtd_dia_mes</rename>
-      </field>
-      <field>
-        <name>DS_DATA_SEM_HORA</name>
-        <rename/>
-      </field>
-      <field>
-        <name>DT_DATA_COM_HORA</name>
-        <rename>dt_com_hora</rename>
-      </field>
-      <field>
-        <name>DS_MES_ANO</name>
-        <rename/>
-      </field>
-      <field>
-        <name>DS_DATA_YMD</name>
-        <rename/>
-      </field>
-      <field>
-        <name>DS_ANO_MES</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
@@ -837,6 +685,148 @@ where sk_tempo between 20150101 and 20151231
     </remotesteps>
     <GUI>
       <xloc>736</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>SK_TEMPO</name>
+      </field>
+      <field>
+        <name>NR_ANO</name>
+      </field>
+      <field>
+        <name>NR_MES_NUMERO</name>
+      </field>
+      <field>
+        <name>NR_DIA_DO_MES</name>
+      </field>
+      <field>
+        <name>NO_MES</name>
+      </field>
+      <field>
+        <name>NR_TRIMESTRE</name>
+      </field>
+      <field>
+        <name>QTD_DIAS_NO_MES</name>
+        <rename>qtd_dia_mes</rename>
+      </field>
+      <field>
+        <name>DS_DATA_SEM_HORA</name>
+      </field>
+      <field>
+        <name>DT_DATA_COM_HORA</name>
+        <rename>dt_com_hora</rename>
+      </field>
+      <field>
+        <name>DS_MES_ANO</name>
+      </field>
+      <field>
+        <name>DS_DATA_YMD</name>
+      </field>
+      <field>
+        <name>DS_ANO_MES</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>SK_TEMPO</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Jaspe</connection>
+    <sql>SELECT *
+from sch_ods.dim_tempo
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
