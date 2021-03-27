@@ -1,0 +1,17 @@
+#cria nova branch
+git checkout -b <branch>
+
+#adiciona arquivos na branch
+git add *
+
+#envia progeto para o github
+git push origin <branch>
+
+#commita a branch
+git commit -m "Commit message"
+
+#troca de branch
+git checkout master
+
+#criando tag
+git tag 1.0.0 1b2e1d63ff
