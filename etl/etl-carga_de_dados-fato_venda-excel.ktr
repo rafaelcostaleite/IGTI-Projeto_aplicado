@@ -668,7 +668,7 @@
     <accept_field/>
     <accept_stepname/>
     <file>
-      <name>/home/rafael/Downloads/projeto-aplicado-dados-export-moore.xlsx</name>
+      <name>/home/rafael/Downloads/projeto-aplicado-dados-export-all-prods.xlsx</name>
       <filemask/>
       <exclude_filemask/>
       <file_required>N</file_required>
@@ -790,23 +790,18 @@
     <fields>
       <field>
         <name>SK_TEMPO</name>
-        <rename/>
       </field>
       <field>
         <name>SK_PRODUTO</name>
-        <rename/>
       </field>
       <field>
         <name>QTD_VENDA</name>
-        <rename/>
       </field>
       <field>
         <name>VAL_VENDA</name>
-        <rename/>
       </field>
       <field>
         <name>SK_REC</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
       <meta>
